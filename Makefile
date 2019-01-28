@@ -150,9 +150,9 @@ $(SCOPE_UI_TOOLCHAIN_UPTODATE): client/yarn.lock $(SCOPE_UI_BUILD_UPTODATE)
 	mkdir -p $(SCOPE_UI_TOOLCHAIN) client/node_modules
 	if test "true" != "$(SCOPE_SKIP_UI_ASSETS)"; then \
 		$(SUDO) docker run $(RM) $(RUN_FLAGS) \
-			-v $(shell pwd)/.cache:/home/weave/scope/.cache \
-			-v $(shell pwd)/client:/home/weave/scope/client \
-			-v $(shell pwd)/$(SCOPE_UI_TOOLCHAIN):/home/weave/scope/client/node_modules \
+			-v $(shell pwd)/.cache:/home/weave/scope/.cache:z \
+			-v $(shell pwd)/client:/home/weave/scope/client:z \
+			-v $(shell pwd)/$(SCOPE_UI_TOOLCHAIN):/home/weave/scope/client/node_modules:z \
 			-w /home/weave/scope/client \
 			$(SCOPE_UI_BUILD_IMAGE) yarn install; \
 	fi
@@ -162,9 +162,9 @@ client/build/index.html: $(shell find client/app -type f) $(SCOPE_UI_TOOLCHAIN_U
 	mkdir -p client/build
 	if test "true" != "$(SCOPE_SKIP_UI_ASSETS)"; then \
 		$(SUDO) docker run $(RM) $(RUN_FLAGS) \
-			-v $(shell pwd)/.cache:/home/weave/scope/.cache \
-			-v $(shell pwd)/client:/home/weave/scope/client \
-			-v $(shell pwd)/$(SCOPE_UI_TOOLCHAIN):/home/weave/scope/client/node_modules \
+			-v $(shell pwd)/.cache:/home/weave/scope/.cache:z \
+			-v $(shell pwd)/client:/home/weave/scope/client:z \
+			-v $(shell pwd)/$(SCOPE_UI_TOOLCHAIN):/home/weave/scope/client/node_modules:z \
 			-w /home/weave/scope/client \
 			$(SCOPE_UI_BUILD_IMAGE) yarn run build; \
 	fi
@@ -173,43 +173,43 @@ client/build-external/index.html: $(shell find client/app -type f) $(SCOPE_UI_TO
 	mkdir -p client/build-external
 	if test "true" != "$(SCOPE_SKIP_UI_ASSETS)"; then \
 		$(SUDO) docker run $(RM) $(RUN_FLAGS) \
-			-v $(shell pwd)/.cache:/home/weave/scope/.cache \
-			-v $(shell pwd)/client:/home/weave/scope/client \
-			-v $(shell pwd)/$(SCOPE_UI_TOOLCHAIN):/home/weave/scope/client/node_modules \
+			-v $(shell pwd)/.cache:/home/weave/scope/.cache:z \
+			-v $(shell pwd)/client:/home/weave/scope/client:z \
+			-v $(shell pwd)/$(SCOPE_UI_TOOLCHAIN):/home/weave/scope/client/node_modules:z \
 			-w /home/weave/scope/client \
 			$(SCOPE_UI_BUILD_IMAGE) yarn run build-external; \
 	fi
 
 client-test: $(shell find client/app/scripts -type f) $(SCOPE_UI_TOOLCHAIN_UPTODATE)
 	$(SUDO) docker run $(RM) $(RUN_FLAGS) \
-		-v $(shell pwd)/.cache:/home/weave/scope/.cache \
-		-v $(shell pwd)/client:/home/weave/scope/client \
-		-v $(shell pwd)/$(SCOPE_UI_TOOLCHAIN):/home/weave/scope/client/node_modules \
+		-v $(shell pwd)/.cache:/home/weave/scope/.cache:z \
+		-v $(shell pwd)/client:/home/weave/scope/client:z \
+		-v $(shell pwd)/$(SCOPE_UI_TOOLCHAIN):/home/weave/scope/client/node_modules:z \
 		-w /home/weave/scope/client \
 		$(SCOPE_UI_BUILD_IMAGE) yarn test
 
 client-lint: $(SCOPE_UI_TOOLCHAIN_UPTODATE)
 	$(SUDO) docker run $(RM) $(RUN_FLAGS) \
-		-v $(shell pwd)/.cache:/home/weave/scope/.cache \
-		-v $(shell pwd)/client:/home/weave/scope/client \
-		-v $(shell pwd)/$(SCOPE_UI_TOOLCHAIN):/home/weave/scope/client/node_modules \
+		-v $(shell pwd)/.cache:/home/weave/scope/.cache:z \
+		-v $(shell pwd)/client:/home/weave/scope/client:z \
+		-v $(shell pwd)/$(SCOPE_UI_TOOLCHAIN):/home/weave/scope/client/node_modules:z \
 		-w /home/weave/scope/client \
 		$(SCOPE_UI_BUILD_IMAGE) yarn run lint
 
 client-start: $(SCOPE_UI_TOOLCHAIN_UPTODATE)
 	$(SUDO) docker run $(RM) $(RUN_FLAGS) --net=host \
-		-v $(shell pwd)/.cache:/home/weave/scope/.cache \
-		-v $(shell pwd)/client:/home/weave/scope/client \
-		-v $(shell pwd)/$(SCOPE_UI_TOOLCHAIN):/home/weave/scope/client/node_modules \
+		-v $(shell pwd)/.cache:/home/weave/scope/.cache:z \
+		-v $(shell pwd)/client:/home/weave/scope/client:z \
+		-v $(shell pwd)/$(SCOPE_UI_TOOLCHAIN):/home/weave/scope/client/node_modules:z \
 		-e WEBPACK_SERVER_HOST \
 		-w /home/weave/scope/client \
 		$(SCOPE_UI_BUILD_IMAGE) yarn start
 
 client/bundle/weave-scope.tgz: $(shell find client/app -type f) $(SCOPE_UI_TOOLCHAIN_UPTODATE)
 	$(sudo) docker run $(RUN_FLAGS) \
-		-v $(shell pwd)/.cache:/home/weave/scope/.cache \
-		-v $(shell pwd)/client:/home/weave/scope/client \
-		-v $(shell pwd)/$(SCOPE_UI_TOOLCHAIN):/home/weave/scope/client/node_modules \
+		-v $(shell pwd)/.cache:/home/weave/scope/.cache:z \
+		-v $(shell pwd)/client:/home/weave/scope/client:z \
+		-v $(shell pwd)/$(SCOPE_UI_TOOLCHAIN):/home/weave/scope/client/node_modules:z \
 		-v $(shell pwd)/tmp:/home/weave/tmp \
 		-w /home/weave/scope/client \
 		$(SCOPE_UI_BUILD_IMAGE) yarn run bundle
