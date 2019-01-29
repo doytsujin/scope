@@ -90,8 +90,8 @@ ifeq ($(BUILD_IN_CONTAINER),true)
 $(SCOPE_EXE) $(RUNSVINIT) lint tests shell prog/staticui/staticui.go prog/externalui/externalui.go: $(SCOPE_BACKEND_BUILD_UPTODATE)
 	@mkdir -p $(shell pwd)/.pkg
 	$(SUDO) docker run $(RM) $(RUN_FLAGS) \
-		-v $(shell pwd):/go/src/github.com/weaveworks/scope \
-		-v $(shell pwd)/.pkg:/go/pkg \
+		-v $(shell pwd):/go/src/github.com/weaveworks/scope:z \
+		-v $(shell pwd)/.pkg:/go/pkg:z \
 		--net=host \
 		-e GOARCH -e GOOS -e CIRCLECI -e CIRCLE_BUILD_NUM -e CIRCLE_NODE_TOTAL \
 		-e CIRCLE_NODE_INDEX -e COVERDIR -e SLOW -e TESTDIRS \
